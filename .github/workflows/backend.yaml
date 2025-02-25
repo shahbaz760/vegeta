@@ -1,0 +1,65 @@
+name: CI
+on:
+  push:
+    branches: 
+    - main
+
+obs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: get_code
+              uses: actions/checkout@v4
+
+            - name: Configure AWS CLI
+              run: |
+                aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws configure set region ${{ secrets.AWS_REGION }}
+
+            - name: Login to AWS ECR
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - env:
+                ENV: ${{ secrets.BACKEND }}
+              run: echo -e "$ENV">.env
+
+            - name: Build and Push Docker Image
+              run: |
+                REPOSITORY_NAME=golu
+                IMAGE_TAG=latest
+                AWS_ACCOUNT_ID=637527414831
+                REGION=us-east-2
+                ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME
+                docker build -t $ECR_URI:$IMAGE_TAG .
+                docker push $ECR_URI:$IMAGE_TAG
+             
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: Set up SSH key for EC2 access
+              run: |
+                    mkdir -p ~/.ssh
+                    echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                    chmod 600 ~/.ssh/id_rsa
+
+            - name: SSH into EC2 and execute commands 
+              run: |
+                    ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
+                    set -e
+                    echo "Docker Login"
+                    aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 400908163598.dkr.ecr.us-east-2.amazonaws.com
+                    docker pull 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+                    echo "pull done"
+                    docker logout 
+                    echo "removing older container"
+                    docker rm -f golu-react-webapp
+                    echo "done"
+                    echo "Running New container"
+                    sudo docker run -d --name golu-react-webapp -p 81:80 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+                    echo "Done" 
+                    docker system prune -a --force 
+
+  
