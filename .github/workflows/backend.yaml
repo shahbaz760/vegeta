@@ -7,17 +7,17 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest    # jfdj
+        runs-on: ubuntu-latest    
         steps:
             - name: get_code
               uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::637527414831:role/github-oidc
-          role-session-name: GitHubActionsSession
-          aws-region: us-east-2  # Change to your AWS region
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                role-to-assume: arn:aws:iam::637527414831:role/github-oidc
+                role-session-name: GitHubActionsSession
+                aws-region: us-east-2  # Change to your AWS region
 
             # - name: Configure AWS CLI
             #   run: |
