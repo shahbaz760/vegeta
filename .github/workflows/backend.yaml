@@ -62,5 +62,6 @@ jobs:
                     sudo docker run -d --name golu-react-webapp -p 81:80 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
                     echo "Done" 
                     docker system prune -a --force 
+                    '
 
   
