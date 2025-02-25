@@ -51,7 +51,7 @@ jobs:
                     ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
                     set -e
                     echo "Docker Login"
-                    aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 400908163598.dkr.ecr.us-east-2.amazonaws.com
+                    aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 637527414831.dkr.ecr.us-east-2.amazonaws.com
                     docker pull 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
                     echo "pull done"
                     docker logout 
