@@ -1,0 +1,18 @@
+exports.ProjectColumnMessages = {
+    GET_LIST: "Get list successfully.",
+    PROJECT_COLUMN_NOT_FOUND: "Project column not found.",
+    COLUMN_ADDED : "Column added successfully.",
+    GET_DATA: "Get data successfully.",
+    COLUMN_UPDATE: "Column info updated successfully.",
+    COLUMN_DELETE: "Column deleted successfully.",
+    COLUMN_MOVE: "Columns moved successfully.",
+    COLUMN_ALREADY_ADDED : "Column already exist.",
+    DEFAULT_COLUMN_NOT_DELETED : "This is a default column. You can't deleted.",
+    PROJECT_NOT_FOUND: "Project not found.",
+    PROJECT_WHITEBOARD_NOT_FOUND: "Project whiteboard not found.",
+    PROJECT_DOCUMENT_NOT_FOUND: "Project document not found.",
+    PROJECT_DOC_OR_BOARD_SORT: "Data sorted successfully.",
+    PROJECT_MENU_NOT_FOUND: "Project menu not found.",
+    DOCUMENT_ALREADY_ADDED: "Doument already added.",
+    WHITEBOARD_ALREADY_ADDED: "Whiteboard already added.",
+  };
