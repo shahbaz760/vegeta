@@ -1,8 +1,10 @@
-name: CI
+name: backend
+
+
 on:
   push:
     branches: 
-    - main
+      - main
 
 jobs:
     build:
