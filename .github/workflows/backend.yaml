@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest    # jfdj
         steps:
             - name: get_code
               uses: actions/checkout@v4
