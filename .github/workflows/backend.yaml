@@ -19,20 +19,23 @@ jobs:
                 aws configure set region ${{ secrets.AWS_REGION }}
             - name: Test aws cli
               run: aws s3 ls
-              
+
             - env:
                 ENV: ${{ secrets.BACKEND }}
               run: echo -e "$ENV">.env
+            
+            - name: Docker Cli login
+              run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 637527414831.dkr.ecr.us-east-2.amazonaws.com
 
-            - name: Build and Push Docker Image
+            - name: Build Docker Image
+              run: docker build -t golu .
+
+            - name: Tag and Push docker image to ECR
               run: |
-                REPOSITORY_NAME=golu
-                IMAGE_TAG=latest
-                AWS_ACCOUNT_ID=637527414831
-                REGION=us-east-2
-                ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME
-                docker build -t $ECR_URI:$IMAGE_TAG .
-                docker push $ECR_URI:$IMAGE_TAG
+                docker tag golu:latest 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+                docker push 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+
+                
              
 
     deploy:
