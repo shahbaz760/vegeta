@@ -59,7 +59,7 @@ jobs:
                     docker rm -f golu-react-webapp
                     echo "done"
                     echo "Running New container"
-                    sudo docker run -d --name golu-react-webapp -p 81:80 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+                    sudo docker run -d --name golu-react-webapp -p 3000:3000 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
                     echo "Done" 
                     docker system prune -a --force 
                     '
