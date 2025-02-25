@@ -1,10 +1,9 @@
 name: backend
 
-
 on:
   push:
-    branches: 
-      - main
+    branches:
+      - master
 
 jobs:
     build:
