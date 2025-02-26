@@ -17,6 +17,15 @@ jobs:
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws configure set region ${{ secrets.AWS_REGION }}
 
+      - name: Configure AWS CLI
+        run: |
+            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 637527414831.dkr.ecr.us-east-2.amazonaws.com
+            echo "build"
+            docker build -t golu .
+            echo "tag"
+            docker tag golu:latest 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
+            echo "push"
+            docker push 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
 
 
 
