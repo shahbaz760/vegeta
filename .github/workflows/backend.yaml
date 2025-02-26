@@ -5,14 +5,14 @@ on:
      branches:
           - master
 jobs:
-build:
-  runs-on: ubuntu-latest
-  steps:
-    - name: get_code
-      uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get_code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS CLI
-      run: |
+      - name: Configure AWS CLI
+        run: |
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws configure set region ${{ secrets.AWS_REGION }}
