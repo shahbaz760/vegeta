@@ -31,6 +31,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Set up SSH key for EC2 access
+        run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+
       - name: login to ec2
         run: |
             ssh -o StrictHostKeyChecking=no ec2-ubuntu@3.145.9.160
