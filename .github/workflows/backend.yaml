@@ -28,6 +28,7 @@ jobs:
             docker push 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: login to ec2
