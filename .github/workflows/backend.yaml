@@ -51,7 +51,6 @@ jobs:
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 637527414831.dkr.ecr.us-east-2.amazonaws.com
             docker pull 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
             echo "docker pull"
-            docker rmi golu
             docker run -p 3000:3000 637527414831.dkr.ecr.us-east-2.amazonaws.com/golu:latest
             docker prune -a --force
 
